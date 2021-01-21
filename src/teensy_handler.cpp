@@ -13,8 +13,8 @@
 using namespace std;
 #define DEG_TO_RAD 0.01745329252
 
-vector<int32_t> int_sensor_data(20);
-vector<float> float_sensor_data(20);
+vector<int32_t> int_sensor_data(30);
+vector<float> float_sensor_data(30);
 std_msgs::Float32 linear_vel;
 
 void int_sensor_data_callback(const std_msgs::Int32MultiArray& int_sensor_data_row){ 
@@ -26,7 +26,10 @@ void float_sensor_data_callback(const std_msgs::Float32MultiArray& float_sensor_
      float_sensor_data=float_sensor_data_row.data;
      linear_vel.data=float_sensor_data_row.data[13]*3.6;
      tf::Transform transform;
-          transform.setOrigin( tf::Vector3(float_sensor_data[1], float_sensor_data[0], float_sensor_data[2]) );
+          //3D
+          //transform.setOrigin( tf::Vector3(float_sensor_data[1], float_sensor_data[0], float_sensor_data[2]) );
+          //2D
+          transform.setOrigin( tf::Vector3(float_sensor_data[19], float_sensor_data[18], 0.0) );
           tf::Quaternion q;
           //q.setRPY(0, 0, float_sensor_data[14]);
           q.setX(-float_sensor_data[10]);
@@ -68,9 +71,15 @@ int main(int argc, char **argv){
           odom.header.stamp=ros::Time::now();
           odom.header.seq=seq_odom;
           odom.child_frame_id="base_link";
-          odom.pose.pose.position.x=float_sensor_data[1];
-          odom.pose.pose.position.y=float_sensor_data[0];
-          odom.pose.pose.position.z=float_sensor_data[2];
+          //3D
+          //odom.pose.pose.position.x=float_sensor_data[1];
+          //odom.pose.pose.position.y=float_sensor_data[0];
+          //odom.pose.pose.position.z=float_sensor_data[2];
+          //2D
+          odom.pose.pose.position.x=float_sensor_data[19];
+          odom.pose.pose.position.y=float_sensor_data[18];
+          odom.pose.pose.position.z=0.0;
+
           odom.pose.pose.orientation.x=-float_sensor_data[10];
           odom.pose.pose.orientation.y=float_sensor_data[9];
           odom.pose.pose.orientation.z=float_sensor_data[11];
