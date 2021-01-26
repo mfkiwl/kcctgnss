@@ -25,5 +25,5 @@
     <remap from="gps/fix" to="/ublox_gps/fix"/>
     <remap from="odometry/filtered" to="odometry/filtered_map"/>
   </node>
-
+  <!--<include file="$(find kcctslam)/launch/32e_points.launch"/>-->
 </launch>
