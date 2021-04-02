@@ -38,14 +38,14 @@
 
 <launch>
   <node pkg="robot_localization" type="navsat_transform_node" name="navsat_transform_node" clear_params="true">
-    <rosparam command="load" file="$(find kcctslam)/config/params/navsat_transform_template.yaml" />
+    <rosparam command="load" file="$(find kcctgnss)/config/params/navsat_transform_template.yaml" />
 
       <!-- Placeholders for input remapping. Set your topic names as the "to" values.-->
      <!-- <remap from="imu/data" to=""/>
       <remap from="odometry/filtered" to=""/>-->
       <remap from="gps/fix" to="/ublox_gps/fix"/>
+      <remap from="odometry/filtered" to="odometry/wheel"/>
       
 
   </node>
 </launch>
-

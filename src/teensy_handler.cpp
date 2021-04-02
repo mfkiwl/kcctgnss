@@ -37,14 +37,14 @@ void float_sensor_data_callback(const std_msgs::Float32MultiArray& float_sensor_
           q.setZ(float_sensor_data[11]);
           q.setW(float_sensor_data[12]);
           transform.setRotation(q);
-          br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "odom","base_link_raw"));
+          br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "map","base_link_raw"));
 }
 
 int main(int argc, char **argv){
     
      ros::init(argc, argv, "teensy_handler");
      ros::NodeHandle n;
-     ros::Rate loop_rate(20);
+     ros::Rate loop_rate(100);
 
      ros::NodeHandle lSubscriber("");
      //ros::Subscriber int_sub = lSubscriber.subscribe("int_sensor_data", 50, int_sensor_data_callback);
@@ -72,14 +72,17 @@ int main(int argc, char **argv){
           odom.header.seq=seq_odom;
           odom.child_frame_id="base_link";
           //3D
-          //odom.pose.pose.position.x=float_sensor_data[1];
-          //odom.pose.pose.position.y=float_sensor_data[0];
-          //odom.pose.pose.position.z=float_sensor_data[2];
+          /*
+          odom.pose.pose.position.x=float_sensor_data[1];
+          odom.pose.pose.position.y=float_sensor_data[0];
+          odom.pose.pose.position.z=float_sensor_data[2];
+          */
           //2D
+          
           odom.pose.pose.position.x=float_sensor_data[19];
           odom.pose.pose.position.y=float_sensor_data[18];
           odom.pose.pose.position.z=0.0;
-
+          
           odom.pose.pose.orientation.x=-float_sensor_data[10];
           odom.pose.pose.orientation.y=float_sensor_data[9];
           odom.pose.pose.orientation.z=float_sensor_data[11];
