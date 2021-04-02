@@ -126,10 +126,10 @@ include_directories(
 #   src/${PROJECT_NAME}/kcctgnss.cpp
 # )
 add_executable(teensy_handler_gnss src/teensy_handler.cpp)
+target_link_libraries(teensy_handler_gnss ${catkin_LIBRARIES})
 
-target_link_libraries(teensy_handler_gnss
-  ${catkin_LIBRARIES}
-)
+add_executable(odom2tf src/odom2tf.cpp)
+target_link_libraries(odom2tf ${catkin_LIBRARIES})
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure

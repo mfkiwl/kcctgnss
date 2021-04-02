@@ -1,0 +1,11 @@
+<launch>
+    <node pkg="gps_common" type="utm_odometry_node" name="utm_odometry_node" >
+        <remap from="fix" to="/ublox_gps/fix"/>
+        <param name="child_frame_id" value="gps_link_raw"/>
+    </node>
+    <node pkg="kcctgnss" type="odom2tf" name="odom2tf">
+        <param name="offset_x" value="506079.38056"/>
+        <param name="offset_y" value="3837516.17268"/>
+        <param name="offset_z" value="36.179"/>
+    </node>
+  </launch>
